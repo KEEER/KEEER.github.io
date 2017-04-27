@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>客页 | KEEER</title>
+<link href="./gs.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+#mtitle {
+	font-size: 52px;
+	text-align: center;
+	margin-top: 150px;
+}
+#buttons {
+	font-size: 32px;
+	margin-top: 100px;
+}
+#buttons button{
+	font-size: 32px;
+	width:170px;
+	height:60px;
+}
+#pinner {
+	transition: opacity .3s ease-in-out;
+	display:block;
+	position: relative;
+	width: 170px;
+	background-color: #7dce44;
+	text-align:left;
+}
+#dproj {
+	display: inline-table;
+}
+#pinner a:hover {
+    padding-left: 16px;
+}
+#pinner a{
+	transition: padding .3s ease-in-out;
+	 padding-left: 8px;
+	text-decoration:none;
+	color:#ff6666;
+}
+[hidden]{opacity:0;}
+#dproj:hover #pinner{
+	opacity:1;
+}
+#pinner.focus{
+	opacity:1;
+}
+a{color:white;}
+</style>
+</head>
+<body>
+<div id="container">
+<h1 id="mtitle">客页工作室 | KEEER</h1>
+<center id="buttons">
+<a href="about.html"><button class="blue" id="babout">关于我们</button></a>
+<div id="dproj"><button class="green" id="bproj">项目</button><div id="pinner" hidden><a href="./tnr.html">Traps N'Roads</a><hr /><a>Developing...</a><br /></div></div>
+<a href=""><button class="red" disabled id="bjoin">加入我们</button></a>
+</center>
+</div>
+
+<script>
+var $=function(a){return document.getElementById(a);};
+var bproj=$("bproj");
+var dproj=$("dproj");
+var pinner=$("pinner");
+var mouseLisOn=function(){
+	if(pinner.className=="focus")pinner.className="";
+	else pinner.className="focus";
+};
+bproj.onclick=mouseLisOn;
+</script>
+</body>
+</html>
