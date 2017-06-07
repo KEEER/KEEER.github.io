@@ -64,7 +64,7 @@ var list={Minecraft:[{name:"Tiger Fan",id:0}],Flash:[{name:"Egamad",id:1}],Deskt
 	position:absolute;
 	top:0;
 	right:0;
-	left:99999px;
+	left:0;
 }
 #pcontainer{
 	position:fixed;
@@ -73,7 +73,7 @@ var list={Minecraft:[{name:"Tiger Fan",id:0}],Flash:[{name:"Egamad",id:1}],Deskt
 	width:100%;
 	overflow:scroll;
 	height:100%;
-	display:none;
+	display:block;
 }
 .icon{
 	width:100%;
@@ -100,6 +100,9 @@ var list={Minecraft:[{name:"Tiger Fan",id:0}],Flash:[{name:"Egamad",id:1}],Deskt
 	-moz-transition:transform ease-out 0.2s;
 	-o-transition:transform ease-out 0.2s;
 	-webkit-animation:transform ease-out 0.2s;	
+}
+#container{
+	display:none;
 }
 </style>
 </head>
@@ -169,27 +172,30 @@ function winresize(){
 	plist.style.left = window.innerWidth+16+"px";
 	pitem.style.left = window.innerWidth+16+"px";
 }
-window.onresize = winresize;
-setTimeout(winresize,500);
+//window.onresize = winresize;
+//setTimeout(winresize,500);
 
 var bproj=$("bproj");
 var container=$("container");
 var pcontainer=$("pcontainer");
 var pitem=$("pitem");
+pitem.style.left = window.innerWidth+16+"px";
 var pitext=$("pitext");
 bproj.onclick=function(e){
-	e.preventDefault();
-	pcontainer.style.display="block";
-	animate(plist,{duration:200,left:0},"left");
-	setTimeout(function(){container.style.display="none";},200);
-	window.onresize=null;
-	history.pushState({stat:1},'',"/products/");
+	history.back();
 };
 
 var backbtn=$("back");
 backbtn.onclick=function(){
-	history.back();
-	if(window.issubopened)history.back();
+	if(window.issubopened)history.pushState({stat:1},'',"/products/");
+	if(window.issubopened)window.issubopened=false;
+	animate(plist,{duration:200,left:window.innerWidth+16},"left");
+	animate(plist,{duration:200,right:0},"right");
+	animate(pitem,{duration:200,left:window.innerWidth+16},"left");
+	container.style.display="block";
+	setTimeout(function(){pcontainer.style.display="none";},200);
+	window.onresize=winresize;
+	history.pushState({stat:0},'',"/");
 };
 var templ=document.getElementById("templ").innerHTML;
 var p_list=$("p-list");
@@ -256,14 +262,7 @@ for(var i=0;i<listitems.length;i++){
 }
 
 window.onpopstate=function(e){
-	if(e.state==undefined || e.state.stat == 0){
-		animate(plist,{duration:200,left:window.innerWidth+16},"left");
-		container.style.display="block";
-		setTimeout(function(){pcontainer.style.display="none";},200);
-		window.onresize=winresize;
-		return;
-	}
-	if(e.state.stat == 1){
+	if(e.state==undefined || e.state.stat == 1){
 		if(window.issubopened){
 			window.issubopened=false;
 			animate(pitem,{duration:200,left:window.innerWidth},"left");
@@ -276,6 +275,13 @@ window.onpopstate=function(e){
 			window.onresize=null;
 			return;
 		}
+	}
+	if(e.state.stat == 0){
+		animate(plist,{duration:200,left:window.innerWidth+16},"left");
+		container.style.display="block";
+		setTimeout(function(){pcontainer.style.display="none";},200);
+		window.onresize=winresize;
+		return;
 	}
 	if(e.state.stat == 2){
 		var id=e.state.id;
