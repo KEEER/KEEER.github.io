@@ -1,0 +1,313 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<script>
+var list={MinecraftPE游戏地图:[{name:"Tiger Fan",id:0}],Flash:[{name:"Traps N' Roads",id:1}],Desktop:[{name:"Edgar u089",id:2},{name:"Queue Huo",id:3},{name:"Alan Liang",id:4}]};
+</script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>客页 | KEEER</title>
+<!--google stylesheets-->
+<link href="/gs.css" rel="stylesheet" type="text/css" />
+<link href="/mdc.css" rel="stylesheet" type="text/css" />
+<link href="/mdc-patch.css" rel="stylesheet" type="text/css" />
+<script language="x/templ" id="templ">
+  <li class="mdc-list-item mdc-list-i prod" data-id="{{id}}" data-mdc-auto-init="MDCRipple" id="prod{{id}}">{{name}}</li>
+</script>
+<script language="x/templ" id="btn">
+<div role="button">
+	<div style="top: 19px; left: 54px; width: 48px; height: 48px;"><img src="/icons/more.svg" class="icon"></div>
+</div>
+</script>
+<style type="text/css">
+#mtitle {
+	font-size: 52px;
+	text-align: center;
+	margin-top: 150px;
+}
+#buttons {
+	font-size: 32px;
+	margin-top: 100px;
+}
+#buttons button{
+	font-size: 32px;
+	width:170px;
+	height:60px;
+}
+#pinner {
+	transition: opacity .3s ease-in-out;
+	display:block;
+	position: relative;
+	width: 170px;
+	background-color: #7dce44;
+	text-align:left;
+}
+#dproj {
+	display: inline-table;
+}
+#pinner a:hover {
+    padding-left: 16px;
+}
+#pinner a{
+	transition: padding .3s ease-in-out;
+	 padding-left: 8px;
+	text-decoration:none;
+	color:#ff6666;
+}
+[hidden]{opacity:0;}
+#dproj:hover #pinner{
+	opacity:1;
+}
+#pinner.focus{
+	opacity:1;
+}
+#plist,#pitem{
+	position:absolute;
+	top:0;
+	right:0;
+	left:99999px;
+}
+#pcontainer{
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	overflow:scroll;
+	height:100%;
+	display:none;
+}
+.icon{
+	width:100%;
+	height:100%;
+}
+#pitem{
+	display:none;
+}
+.p-type > li + li{
+	margin-left:24px;
+}
+.p-type.p-closed > li + li{
+	display:none;
+}
+.icon.less{
+	transform:rotate(180deg);
+	-ms-transform:rotate(180deg); /* Internet Explorer */
+	-moz-transform:rotate(180deg); /* Firefox */
+	-webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+	-o-transform:rotate(180deg); /* Opera */
+}
+.icon{
+	transition:transform ease-out 0.2s;
+	-moz-transition:transform ease-out 0.2s;
+	-o-transition:transform ease-out 0.2s;
+	-webkit-animation:transform ease-out 0.2s;	
+}
+#pitem,#pitext{
+	height:100%;
+}
+</style>
+</head>
+<body>
+<div id="pcontainer">
+<div id="plist">
+<header class="mdc-toolbar">
+  <div class="mdc-toolbar__row">
+	<div class="hi">
+		<div role="button" id="back">
+			<div style="top: 19px; left: 54px; width: 48px; height: 48px;"><img src="/icons/back.svg" class="icon" /></div>
+		</div>
+	</div>
+    <section class="mdc-toolbar__section">
+      <span class="mdc-toolbar__title">项目列表 | 客页</span>
+    </section>
+    <div class="hi">
+   		<div role="button" style="cursor:default">
+		</div>
+    </div>
+  </div>
+</header>
+
+<ul class="mdc-list" id="p-list">
+</ul>
+
+</div>
+
+
+<div id="pitem">
+<header class="mdc-toolbar">
+  <div class="mdc-toolbar__row">
+	<div class="hi">
+		<div role="button" id="close">
+			<div style="top: 19px; left: 54px; width: 48px; height: 48px;"><img src="/icons/close.svg" class="icon" /></div>
+		</div>
+	</div>
+    <section class="mdc-toolbar__section">
+      <span class="mdc-toolbar__title">项目 | 客页</span>
+    </section>
+    <div class="hi">
+   		<div role="button" style="cursor:default">
+		</div>
+    </div>
+  </div>
+</header>
+
+<div id="pitext"></div>
+</div>
+</div>
+
+<div id="container">
+<h1 id="mtitle">客页工作室 | KEEER</h1>
+<center id="buttons">
+<a href="about.html"><button class="blue" id="babout">关于我们</button></a>
+<a href="/products/"><button class="green" id="bproj">项目</button></a>
+<a href=""><button class="red" disabled id="bjoin">加入我们</button></a>
+</center>
+</div>
+
+
+
+<script src="/utils.js"></script>
+<script>
+var plist=$("plist");
+function winresize(){
+	plist.style.left = window.innerWidth+16+"px";
+	pitem.style.left = window.innerWidth+16+"px";
+}
+window.onresize = winresize;
+setTimeout(winresize,500);
+
+var bproj=$("bproj");
+var container=$("container");
+var pcontainer=$("pcontainer");
+var pitem=$("pitem");
+var pitext=$("pitext");
+bproj.onclick=function(e){
+	e.preventDefault();
+	pcontainer.style.display="block";
+	animate(plist,{duration:200,left:0},"left");
+	setTimeout(function(){container.style.display="none";},200);
+	window.onresize=null;
+	history.pushState({stat:1},'',"/products/");
+};
+
+var backbtn=$("back");
+backbtn.onclick=function(){
+	history.back();
+	if(window.issubopened)history.back();
+};
+var templ=document.getElementById("templ").innerHTML;
+var p_list=$("p-list");
+var btnhtml=$("btn").innerHTML;
+for(var i in list){
+	var newdiv;
+	newdiv=document.createElement("div");
+	newdiv.className="p-type p-closed";
+	newdiv.innerHTML=template(templ,{name:btnhtml+i,id:"Type"+i});
+	p_list.appendChild(newdiv);
+	for(var j=0;j<list[i].length;j++){
+		newdiv.innerHTML+=template(templ,list[i][j]);
+	}
+	var btn=newdiv.querySelector("li");
+	btn.onclick=function(e){
+		if(e.currentTarget.parentElement.classList.contains("p-closed")){
+			e.currentTarget.parentElement.classList.remove("p-closed");
+			e.currentTarget.querySelector("img").classList.add("less");
+		}
+		else{
+			e.currentTarget.parentElement.classList.add("p-closed");
+			e.currentTarget.querySelector("img").classList.remove("less");
+		}
+	};
+}
+function getSubData(id,callback){
+	httpget("/products/"+id+"/product.html",function(status,response){
+		if(status==404)callback(-1);
+		if(status==200)callback(response);
+	});
+}
+var closebtn=$("close");
+closebtn.onclick=function(){
+	history.back();
+};
+var subListener = function(e){
+	var id=e.currentTarget.getAttribute("data-id");
+	if(window.issubopened){
+		animate(pitem,{duration:200,left:window.innerWidth},"left");
+		animate(plist,{duration:200,right:0},"right");
+	}
+	var callback=function(msg){
+		if(msg==-1)subListener(e);
+		if(window.issubopened){
+			setTimeout(function(){
+				pitext.innerHTML = msg;
+				animate(pitem,{duration:200,left:400},"left");
+				animate(plist,{duration:200,right:window.innerWidth-416},"right");
+			},200);
+		}else{
+			window.issubopened=true;
+			pitext.innerHTML = msg;
+			pitem.style.display="block";
+			animate(pitem,{duration:200,left:400},"left");
+			animate(plist,{duration:200,right:window.innerWidth-416},"right");
+		}
+		history.pushState({stat:2,id:id},'',"/products/view.html?id="+id);
+	};
+	getSubData(id,callback);
+};
+var listitems=p_list.querySelectorAll(".p-type>li+li");
+for(var i=0;i<listitems.length;i++){
+	listitems[i].onclick=subListener;
+}
+
+window.onpopstate=function(e){
+	if(e.state==undefined || e.state.stat == 0){
+		animate(plist,{duration:200,left:window.innerWidth+16},"left");
+		container.style.display="block";
+		setTimeout(function(){pcontainer.style.display="none";},200);
+		window.onresize=winresize;
+		return;
+	}
+	if(e.state.stat == 1){
+		if(window.issubopened){
+			window.issubopened=false;
+			animate(pitem,{duration:200,left:window.innerWidth},"left");
+			animate(plist,{duration:200,right:0},"right");
+			return;
+		}else{
+			pcontainer.style.display="block";
+			animate(plist,{duration:200,left:0},"left");
+			setTimeout(function(){container.style.display="none";},200);
+			window.onresize=null;
+			return;
+		}
+	}
+	if(e.state.stat == 2){
+		var id=e.state.id;
+		if(window.issubopened){
+			animate(pitem,{duration:200,left:window.innerWidth},"left");
+			animate(plist,{duration:200,right:0},"right");
+		}
+		var callback=function(msg){
+			if(msg==-1)subListener(e);
+			if(window.issubopened){
+				setTimeout(function(){
+					pitext.innerHTML = msg;
+					animate(pitem,{duration:200,left:400},"left");
+					animate(plist,{duration:200,right:window.innerWidth-416},"right");
+				},200);
+			}else{
+				window.issubopened=true;
+				pitext.innerHTML = msg;
+				pitem.style.display="block";
+				animate(pitem,{duration:200,left:400},"left");
+				animate(plist,{duration:200,right:window.innerWidth-416},"right");
+			}
+		};
+		getSubData(id,callback);
+		return;
+	}
+};
+</script>
+<script src="/mdc.js"></script>
+<script>mdc.autoInit()</script>
+</body>
+</html>

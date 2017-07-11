@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>page0</title>
+<script src="./pjax.js"></script>
+</head>
+
+<body>
+<div id="control">
+<button id="page0">page0</button>
+<button id="page1">page1</button>
+<button id="page2">page2</button>
+<button id="page3">page3</button>
+</div>
+<div id="test">
+default
+</div>
+<script>
+/*
+  testing pjax.js
+*/
+var testdiv=document.getElementById("test");
+pjax.history[0].callback=function(){
+	testdiv.innerText="default";
+};
+var page0=pjax.history[0];
+var page1=new pjax.page("page1","/page1",function(){
+	testdiv.innerText="page1";
+});
+var page2=new pjax.page("page2","/page2",function(){
+	testdiv.innerText="page2";
+});
+var page3=new pjax.page("page3","/page3",function(){
+	testdiv.innerText="page3";
+});
+var p0div=document.getElementById("page0");p0div.onclick=function(){pjax.push(page0);};
+var p1div=document.getElementById("page1");p1div.onclick=function(){pjax.push(page1);};
+var p2div=document.getElementById("page2");p2div.onclick=function(){pjax.push(2);};
+var p3div=document.getElementById("page3");p3div.onclick=function(){pjax.push();};
+
+</script>
+</body>
+</html>
