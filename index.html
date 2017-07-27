@@ -10,7 +10,7 @@ var list={MinecraftPE游戏地图:[{name:"",id:0}],Flash:[{name:"Traps N' Roads"
 <link href="/mdc-patch.css" rel="stylesheet" type="text/css" />
 
 <link href="/styles.css" rel="stylesheet" type="text/css" />
-
+<meta name="theme-color" id="themecolor" content="#002d4d">
 <meta charset="utf-8">
 <title>客页 | KEEER</title>
 
@@ -137,6 +137,7 @@ window.onscroll=function(e){
 };
 </script>
 <script>
+var themecolor=$("themecolor");
 pjax.pagecount=0;
 pjax.pages=[];
 var listeners={};
@@ -146,6 +147,7 @@ listeners.main=function(){
 	setTimeout(function(){pcontainer.style.display="none";},200);
 	window.onresize=winresize;
 	window.issubopened=false;
+	themecolor.setAttribute("content","#002d4d");
 	return;
 };
 listeners.list=function(){
@@ -154,14 +156,13 @@ listeners.list=function(){
 		window.issubpened="animating";
 		animate(pitem,{duration:200,left:window.innerWidth},"left");
 		animate(plist,{duration:200,right:0},"right");
-		return;
 	}else{
 		pcontainer.style.display="block";
 		animate(plist,{duration:200,left:0},"left");
 		setTimeout(function(){main.style.display="none";},200);
 		window.onresize=null;
-		return;
 	}
+	themecolor.setAttribute("content","#3d9400");
 };
 listeners.subpage=function(){
 	var id=getParam("id");
@@ -192,6 +193,7 @@ listeners.subpage=function(){
 		}
 	};
 	getSubData(id,callback);
+	themecolor.setAttribute("content","#3d9400");
 	return;
 };
 var pages={};
