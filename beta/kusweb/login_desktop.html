@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>登录客页账号</title>
+<!-- Styles -->
+<link href="./styles.css" rel="stylesheet" type="text/css" />
+<link href="./mdc.css" rel="stylesheet" type="text/css" />
+<script src="./mdc.js"></script>
+
+</head>
+
+<body>
+<div id="container">
+
+<h1>登录客页账号</h1>
+<hr />
+
+<div id="login_box_table">
+<div id="box_left" class="box">
+<h2>账号密码登录</h2>
+<div class="mdc-form-field">
+<div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+  <input class="mdc-textfield__input" type="text" required id="user">
+  <label for="user" class="mdc-textfield__label">账号</label>
+  <div class="mdc-textfield__bottom-line"></div>
+</div>
+</div>
+
+<div class="mdc-form-field">
+<div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+  <input class="mdc-textfield__input" type="password" required id="pass">
+  <label for="pass" class="mdc-textfield__label">密码</label>
+  <div class="mdc-textfield__bottom-line"></div>
+</div>
+</div>
+<br />
+
+<div class="mdc-form-field">
+  <div class="mdc-checkbox">
+    <input type="checkbox"
+           id="my-checkbox"
+           class="mdc-checkbox__native-control"/>
+    <div class="mdc-checkbox__background">
+      <svg class="mdc-checkbox__checkmark"
+           viewBox="0 0 24 24">
+        <path class="mdc-checkbox__checkmark__path"
+              fill="none"
+              stroke="white"
+              d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+      </svg>
+      <div class="mdc-checkbox__mixedmark"></div>
+    </div>
+  </div>
+
+  <label for="my-checkbox">记住我</label>
+</div>
+<br /><br />
+<button class="mdc-button mdc-button--raised mdc-button--primary" data-mdc-auto-init="MDCRipple">
+  登录
+</button>
+</div>
+<div id="box_middle"><h2>或者</h2></div>
+<div id="block_right" class="box">
+<h2>微信扫码登录</h2>
+
+<div id="qrcode"></div>
+<script src="./qr.js"></script>
+<script type="text/javascript">
+var qrcode = new QRCode(document.getElementById("qrcode"), {
+	text: location.href,
+	width: 250,
+	height: 250,
+	colorDark : "#002d4d",
+	colorLight : "#f5fafd",
+	correctLevel : QRCode.CorrectLevel.H
+});
+</script>
+</div>
+</div>
+
+<a href="http://www.keeer.ml/"><img class="logo" src="logo.png" /></a>
+
+</div>
+
+<!-- Auto-init -->
+<script>mdc.autoInit();document.body.className='ok';</script>
+</body>
+</html>
