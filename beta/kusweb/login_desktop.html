@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<div id="container">
+<div class="container" id="login">
 
 <h1>登录客页账号</h1>
 <hr />
@@ -56,7 +56,8 @@
   <label for="my-checkbox">记住我</label>
 </div>
 <br /><br />
-<button class="mdc-button mdc-button--raised mdc-button--primary" data-mdc-auto-init="MDCRipple">
+<button class="mdc-button mdc-button--raised mdc-button--primary" data-mdc-auto-init="MDCRipple"
+        onclick="document.getElementById('login').classList.remove('ok');document.getElementById('confirm').classList.add('ok');">
   登录
 </button>
 <button class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
@@ -86,8 +87,21 @@ var qrcode = new QRCode(document.getElementById("qrcode"), {
 <a href="http://www.keeer.ml/"><img class="logo" src="logo.png" /></a>
 
 </div>
+<div class="container confirm" id="confirm">
+
+<h1>使用客页账号登录</h1>
+<hr />
+
+<div id="confirm_box">
+<h2>登录到{{appName}}</h2>
+<h3>{{appName}}想查询您的以下信息：</h3>
+</div>
+
+<a href="http://www.keeer.ml/"><img class="logo" src="logo.png" /></a>
+
+</div>
 
 <!-- Auto-init -->
-<script>mdc.autoInit();document.body.className='ok';</script>
+<script>mdc.autoInit();setTimeout(function(){document.getElementById("login").classList.add('ok');},50);</script>
 </body>
 </html>
