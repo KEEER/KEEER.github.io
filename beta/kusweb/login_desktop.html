@@ -40,7 +40,7 @@
   <div class="mdc-checkbox">
     <input type="checkbox"
            id="my-checkbox"
-           class="mdc-checkbox__native-control"/>
+           class="mdc-checkbox__native-control" checked/>
     <div class="mdc-checkbox__background">
       <svg class="mdc-checkbox__checkmark"
            viewBox="0 0 24 24">
@@ -93,8 +93,23 @@ var qrcode = new QRCode(document.getElementById("qrcode"), {
 <hr />
 
 <div id="confirm_box">
+<div id="confirm_inner" class="innerbox">
 <h2>登录到{{appName}}</h2>
 <h3>{{appName}}想查询您的以下信息：</h3>
+
+<button class="mdc-button mdc-button--raised mdc-button--primary" data-mdc-auto-init="MDCRipple"
+        onclick="document.getElementById('confirm_inner').classList.add('ok');">
+  授权
+</button>
+</div>
+<div id="ok_inner" class="innerbox">
+
+<img src="./done.png" />
+
+<h2>完成!</h2>
+
+</div>
+
 </div>
 
 <a href="http://www.keeer.ml/"><img class="logo" src="logo.png" /></a>
