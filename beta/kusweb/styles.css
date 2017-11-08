@@ -101,7 +101,7 @@ h3{
 
 .innerbox{
 	height:370px;
-	transition:margin-top cubic-bezier(0.6,0,1,1) 0.5s 0s;
+	transition:margin-top cubic-bezier(0,0,0.2,1) 0.5s 0.2s;
 }
 
 .innerbox.ok{
@@ -110,4 +110,28 @@ h3{
 
 #ok_inner{
 	padding-top:110px;
+}
+
+.confirm_item{
+	width:450px;
+	height:50px;
+	text-align:left;
+	margin:auto;
+	margin-top:20px;
+}
+
+.confirm_item>img{
+	float:left;
+	width:45px;
+	height:45px;
+}
+
+.confirm_item>h4{
+	width:400px;
+	margin:0;
+}
+
+.confirm_item>h4.secondary{
+	color:#aaa;
+	font-weight:normal;
 }
