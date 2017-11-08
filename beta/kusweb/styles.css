@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 
 body{
 	background-color:#ccffff;/* CMYK 20,0,0,0 */
@@ -91,10 +91,23 @@ h2{
 	color:#002d4d;/* CMYK 100,60,20,60 */
 	border:1px #002d4d;/* CMYK 100,60,20,60 */
 	box-shadow:0 0 5px 2px #aaa;
-	display:table;
+	overflow:hidden;
 }
 
 h3{
 	font-size:18px;
 	line-height:1.5;
+}
+
+.innerbox{
+	height:370px;
+	transition:margin-top cubic-bezier(0.6,0,1,1) 0.5s 0s;
+}
+
+.innerbox.ok{
+	margin-top:-400px;
+}
+
+#ok_inner{
+	padding-top:110px;
 }
