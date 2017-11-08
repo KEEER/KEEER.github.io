@@ -27,6 +27,8 @@
 </div>
 </div>
 
+<br />
+
 <div class="mdc-form-field">
 <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
   <input class="mdc-textfield__input" type="password" required id="pass">
@@ -57,7 +59,7 @@
 </div>
 <br /><br />
 <button class="mdc-button mdc-button--raised mdc-button--primary" data-mdc-auto-init="MDCRipple"
-        onclick="document.getElementById('login').classList.remove('ok');document.getElementById('confirm').classList.add('ok');">
+        onclick="document.getElementById('login').classList.remove('ok');setTimeout(function(){document.getElementById(confirm('模拟登陆过程，成功？')?'confirm':'login').classList.add('ok');},1000);">
   登录
 </button>
 <button class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">
@@ -95,7 +97,22 @@ var qrcode = new QRCode(document.getElementById("qrcode"), {
 <div id="confirm_box">
 <div id="confirm_inner" class="innerbox">
 <h2>登录到{{appName}}</h2>
-<h3>{{appName}}想查询您的以下信息：</h3>
+<h3>{{appName}}需要查询您的以下信息：</h3>
+
+<div class="confirm_item">
+<img src="./public.png">
+<h4>公开信息</h4>
+<h4 class="secondary">包括您的用户名、头像、昵称、KEEER ID</h4>
+</div>
+
+<div class="confirm_item">
+<img src="./lock.png">
+<h4>私有信息</h4>
+<h4 class="secondary">包括您的邮箱、手机以及该应用内的虚拟货币</h4>
+</div>
+
+
+<br /><br />
 
 <button class="mdc-button mdc-button--raised mdc-button--primary" data-mdc-auto-init="MDCRipple"
         onclick="document.getElementById('confirm_inner').classList.add('ok');">
