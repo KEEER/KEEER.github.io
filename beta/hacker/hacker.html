@@ -1,0 +1,329 @@
+<!doctype html>
+<html>
+<head>
+  <title>hacker[demo]</title>
+  <link href="./mdc.css" type="text/css" rel="stylesheet" />
+  <link href="./dependencies.css" type="text/css" rel="stylesheet" />
+  <meta name="viewport" content="width=400, user-scalable=0" />
+  <style>
+  /* hacker stylesheet */
+  body{
+    --mdc-theme-primary: #e3f2fd;
+    --mdc-theme-primary-light: #e3f2fd;
+    --mdc-theme-primary-dark: #b1bfca;
+    --mdc-theme-secondary: #f06292;
+    --mdc-theme-secondary-light: #ff94c2;
+    --mdc-theme-secondary-dark: #ba2d65;
+    --mdc-theme-text-primary-on-primary: #000;
+    --mdc-theme-text-primary-on-primary: #000;
+    padding-top: 64px;
+  }
+
+  #header{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 64px;
+  }
+
+  @media(min-width: 832px){
+    .mdc-card{
+      width: 800px;
+      margin:auto;
+    }
+  }
+
+  .card_msg{
+    position: relative;
+  }
+
+  .todo-table{
+    display: table-row;
+    margin: 5px;
+  }
+
+  .section-todos{
+    border: 1px solid #000;
+    border-radius: 5px;
+    display:table-cell;
+  }
+
+  .section-actions{
+    display: table-cell;
+    width:50%;
+  }
+
+  .todo-action:not(:disabled){
+    color:#000;
+    color:var(--mdc-theme-text-primary-on-primary,#000);
+  }
+  .todo-action{
+    color:#000;
+    color:var(--mdc-theme-text-primary-on-primary,#000);
+  }
+
+  .table-title{
+    font-size: 20px;
+    width:100%;
+    text-align:center;
+    margin:0;
+  }
+
+  #pages{
+    width:100%;
+    position: fixed;
+    left:0;
+    height:80%;
+    overflow:scroll;
+  }
+
+  .page{
+    position:absolute;
+    width:100%;
+  }
+
+  #pages.passed>.page, .page.passed{
+    position: static;
+  }
+
+  #day-length-container{
+    height: 28px;
+    width: 100%;
+  }
+
+  #config-ok{
+    color:#000;
+    width:100%;
+  }
+
+  [color-black], .mdc-button[color-black]{
+    color:#000;
+  }
+
+  [display-block]{
+    display:block;
+  }
+  </style>
+  <script language="x/template" id="template_page">
+<div class="page">
+  {{content}}
+</div>
+  </script>
+
+  <script language="x/template" id="template_card_select_todos">
+<div class="mdc-card">
+  <section class="mdc-card__primary">
+    <h1 class="mdc-card__subtitle">Select todos---day {{day}}</h1>
+  </section>
+  <section class="todo-table">
+
+  <section class="section-todos">
+    <div class="todo-list">
+    <h1 class="mdc-card__title table-title">todos</h1>
+    <hr />
+    </div>
+  </section>
+  <section class="mdc-card__actions section-actions">
+    <button
+      class="todo-action mdc-button button-learn-lang"
+      data-mdc-auto-init="MDCRipple">Learn a language</button>
+    <button
+      class="todo-action mdc-button button-learn-trick"
+      data-mdc-auto-init="MDCRipple">Learn a trick</button>
+    <button
+      class="todo-action mdc-button button-code"
+      data-mdc-auto-init="MDCRipple">Code!</button>
+    <button
+      class="todo-action mdc-button button-rest"
+      data-mdc-auto-init="MDCRipple">Rest</button>
+    <button
+      class="todo-action mdc-button button-exercise"
+      data-mdc-auto-init="MDCRipple">Go exercising</button>
+    <button
+      class="todo-action mdc-button button-discover"
+      data-mdc-auto-init="MDCRipple">Discover a bug</button>
+  </section>
+
+  </section>
+</div>
+  </script>
+
+  <script language="x/template" id="template_todo">
+  <p class="todo-item">
+  <span class="mdc-card__subtitle">{{text}}</span>
+  <span class="spend-time"><i class="material-icons">&#xE425;</i>{{time}}</span>
+  <span class="delete">
+    <i class="mdc-icon-toggle material-icons" role="button" aria-pressed="false"
+     aria-label="Remove" tabindex="0" data-mdc-auto-init="MDCIconToggle"
+     data-toggle-on='{"label": "Remove", "content": "&#xE872;"}'
+     data-toggle-off='{"label": "Remove", "content": "&#xE872;"}'>
+      &#xE872;
+    </i>
+  </span>
+  </p>
+  </script>
+</head>
+<body>
+  <header id="header" class="mdc-toolbar mdc-elevation--z4">
+    <div class="mdc-toolbar__row">
+      <section class="mdc-toolbar__section">
+        <span class="mdc-toolbar__title">Title</span>
+      </section>
+    </div>
+  </header>
+
+
+  <div id="pages">
+    <div class="page" id="initial-page">
+      <div class="mdc-card">
+        <section class="mdc-card__primary">
+          <h1 class="mdc-card__title--large">Hacker</h1>
+          <h1 class="mdc-card__subtitle">Welcome!</h1>
+        </section>
+      </div>
+      <br />
+      <div class="mdc-card">
+        <section class="mdc-card__primary">
+          <h1 class="mdc-card__title--large">Config</h1>
+        </section>
+        <section class="mdc-card__actions" display-block>
+          <div class="mdc-text-field" id="day-length-container" data-mdc-auto-init="MDCTextField">
+            <input type="number" id="day-length" class="mdc-text-field__input controller">
+            <label class="mdc-text-field__label" for="day-length">How many hours is a day?(4)</label>
+            <div class="mdc-text-field__bottom-line"></div>
+          </div><br />
+          <button id="config-ok" class="mdc-button controller" data-mdc-auto-init="MDCRipple">OK</button>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <aside id="mdc-dialog"
+    class="mdc-dialog"
+    role="alertdialog"
+    aria-labelledby="mdc-dialog-label"
+    aria-describedby="mdc-dialog-description">
+    <div class="mdc-dialog__surface">
+      <header class="mdc-dialog__header">
+        <h2 id="mdc-dialog-label" class="mdc-dialog__header__title">
+          Oops......
+        </h2>
+      </header>
+      <section id="mdc-dialog-description" class="mdc-dialog__body">
+        This dialog should not be shown now! Please contact me if you see this (not in source code)
+        <br />
+        My address is alan-liang¤keeer.ga, replace ¤ into @.
+      </section>
+      <footer class="mdc-dialog__footer">
+        <button type="button" color-black class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel">Decline</button>
+        <button type="button" color-black class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">Accept</button>
+      </footer>
+    </div>
+    <div class="mdc-dialog__backdrop"></div>
+  </aside>
+
+  <!-- mdc -->
+  <script src="./mdc.js"></script>
+  <script src="./utils.js"></script>
+  <script>
+  //a few tools
+  function $_(selector,parent){
+    if(parent===undefined) parent=document;
+    return parent.querySelectorAll(selector);
+  }
+  $_.ensureOne=function(selector,parent){
+    if(parent===undefined) parent=document;
+    var all=parent.querySelectorAll(selector);
+    if(all.length>1){
+      console.error("Error: ensureOne catched multiple");
+      console.error(all);
+      return all[0];
+    }
+    return all[0];
+  };
+  function updatePages(){
+    var pages=$_(".page",divPages);
+    for(var i=1;i<pages.length;i++){
+      pages[i].style.left=(i+"00%");
+    }
+  }
+  function lottery(chance) {
+    var rnd=Math.random();
+    return rnd<chance;
+  }
+
+  //init template
+  var templates={selectTodos:"template_card_select_todos",
+                page:"template_page",
+                todoItem:"template_todo"
+  };
+  for(var i in templates){
+    templates[i]=$(templates[i]).innerHTML;
+  }
+
+  //init vars
+  var divPages=$("pages");
+  var currentPage=$("initial-page");
+  var dialog=mdc.dialog.MDCDialog.attachTo($("mdc-dialog"));
+  var dayLength;
+  var day;
+
+  //consts
+  var DIALOG_ACCEPT_SELECTOR=".mdc-dialog__footer__button--accept";
+  var DIALOG_DECLINE_SELECTOR=".mdc-dialog__footer__button--cancel";
+  var DIALOG_CONTENT_SELECTOR=".mdc-dialog__body";
+  var DIALOG_TITLE_SELECTOR=".mdc-dialog__header__title";
+  var DIALOG_ACTIONS_SELECTOR=".mdc-dialog__footer";
+
+  //divPages.innerHTML+=template(templates.page,{content:templates.selectTodos});
+  updatePages();
+
+  function memorizeCurrentPage(){
+    //currentPage.classList.add("passed");
+    var controls=$_(".controller",currentPage);
+    for(var i=0;i<controls.length;i++){
+      controls[i].setAttribute("disabled","disabled");
+    }
+  }
+  function scrollOne() {
+    var lastScrolled;
+    animate(divPages,
+      {scroll:window.innerWidth,
+       duration:2000,
+       callback:function(now){
+          if(!lastScrolled)lastScrolled=0;
+          divPages.scrollBy(now-lastScrolled,0);
+       }}
+      ,"scroll");
+  }
+
+  $("config-ok").onclick=function() {
+    var dayLengthBox=$("day-length");
+    dayLength=parseInt(dayLengthBox.value);
+    if(!(dayLength>0&&dayLength<24)){
+      dayLength=4;
+      dayLengthBox.value=4;
+    }
+    day=1;
+    currentPage=$("initial-page");
+    memorizeCurrentPage();
+    //↓ will cause bugs such as no inputs
+    //divPages.innerHTML+=template(templates.page,{content:templates.selectTodos});
+    var selectTodos=template(templates.selectTodos,{day:day});
+    var divSelectTodos=document.createElement("div");
+    divSelectTodos.classList.add("page");
+    divSelectTodos.innerHTML=selectTodos;
+    divPages.appendChild(divSelectTodos);
+    updatePages();
+    currentPage=$_(".page",divPages)[1];
+    scrollOne();
+    mdc.autoInit();
+  };
+
+  //mdc
+  mdc.autoInit();
+  </script>
+
+</body>
+</html>
